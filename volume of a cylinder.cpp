@@ -1,3 +1,7 @@
+/*
+AUTHOR:Victor Muiruri
+REG NO:BSE-05-0210/2024
+*/	
 #include<iostream>
 #include<cmath>//For M_PI constant
 using namespace std;
