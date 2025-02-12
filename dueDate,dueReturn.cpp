@@ -1,5 +1,5 @@
 /*
-AUTHOR:Victor Muiruri
+AUTHOR:Victor Kinuthia
 REG NO:BSE-05-0210-/2024
 */	
 #include<iostream>
