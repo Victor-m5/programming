@@ -1,0 +1,169 @@
+// Author-Victor Kinuthia
+// Reg no.-BSE-05-0210/2024
+// Group 3 member
+
+// class car
+
+public class Car {
+    private String make;
+    private String model;
+    private String licensePlate;
+    private boolean isRented;
+
+    public Car(String make, String model, String licensePlate) {
+        this.make = make;
+        this.model = model;
+        this.licensePlate = licensePlate;
+        this.isRented = false;
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public boolean isRented() {
+        return isRented;
+    }
+
+    public void rent() {
+        this.isRented = true;
+    }
+
+    public void returnCar() {
+        this.isRented = false;
+    }
+}
+
+//class customer
+
+public class Customer {
+    private String name;
+    private String email;
+
+    public Customer(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+}
+
+// class rental agency
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RentalAgency {
+    private List<Car> cars;
+    private List<Customer> customers;
+
+    public RentalAgency() {
+        this.cars = new ArrayList<>();
+        this.customers = new ArrayList<>();
+    }
+
+    public void addCar(Car car) {
+        cars.add(car);
+    }
+
+    public void registerCustomer(Customer customer) {
+        customers.add(customer);
+    }
+
+    public Car rentCar(String licensePlate) {
+        for (Car car : cars) {
+            if (car.getLicensePlate().equals(licensePlate) && !car.isRented()) {
+                car.rent();
+                return car;
+            }
+        }
+        return null; // Car not available
+    }
+
+    public void returnCar(String licensePlate) {
+        for (Car car : cars) {
+            if (car.getLicensePlate().equals(licensePlate)) {
+                car.returnCar();
+                return;
+            }
+        }
+    }
+}
+
+// Test cases
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class RentalAgencyTest {
+    private RentalAgency rentalAgency;
+    private Car car1;
+    private Car car2;
+    private Customer customer;
+
+    @BeforeEach
+    void setUp() {
+        rentalAgency = new RentalAgency();
+        car1 = new Car("Toyota", "Camry", "ABC123");
+        car2 = new Car("Honda", "Civic", "XYZ456");
+        customer = new Customer("John Doe", "john@example.com");
+        rentalAgency.addCar(car1);
+        rentalAgency.addCar(car2);
+        rentalAgency.registerCustomer(customer);
+    }
+
+    @Test
+    void testRentCar() {
+        Car rentedCar = rentalAgency.rentCar("ABC123");
+        assertNotNull(rentedCar);
+        assertTrue(rentedCar.isRented());
+    }
+
+    @Test
+    void testReturnCar() {
+        rentalAgency.rentCar("XYZ456");
+        rentalAgency.returnCar("XYZ456");
+        assertFalse(car2.isRented());
+    }
+
+    @Test
+    void testRentUnavailableCar() {
+        rentalAgency.rentCar("ABC123");
+        Car rentedAgain = rentalAgency.rentCar("ABC123");
+        assertNull(rentedAgain);
+    }
+}
+
+Documentation
+Overview
+This car rental system allows customers to register and rent cars from an agency.
+The system encapsulates data for cars and customers and provides methods for renting and returning cars.
+
+Classes
+Car: Represents a car with properties such as make, model, and license plate.
+Customer: Represents a customer with a name and email.
+RentalAgency: Manages the cars and customers and provides methods for renting and returning cars.  
+Submission Structure
+
+Source Code: Include the Java files for Car.java, Customer.java, and RentalAgency.java.
+Test Files: Include RentalAgencyTest.java for testing.
+Documentation: Provide this overview and class descriptions.
+Conclusion
+
+This design provides a modular and flexible structure for a car rental system, allowing for easy extensions and maintenance. 
+You can further enhance this system by adding features such as rental duration, fees, and more detailed error handling.
